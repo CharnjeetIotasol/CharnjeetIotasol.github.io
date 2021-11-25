@@ -3,7 +3,7 @@ window.onload = () => {
 
     // first get current user location
     return navigator.geolocation.getCurrentPosition(function (position) {
-        alert("Here 2");
+        alert("Here 3");
         // then use it to load from remote APIs some places nearby
         const latitude = 30.862431;
         const longitude = 75.834327;
