@@ -12,7 +12,7 @@
             navigator.geolocation.getCurrentPosition((position) => {
                 alert(position.coords.latitude);
                 alert(position.coords.longitude);
-                alert("Got Changes 4");
+                alert("Got Changes 5");
             });
        }
       </script>
@@ -24,11 +24,8 @@
 		embedded
         arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
 
-        <a-entity gps-entity-place="latitude: 30.8625331; longitude: 75.8343547;" gltf-model="./assets/magnemite/scene.gltf" rotation="0 180 0" animation-mixer scale="0.15 0.15 0.15"/>
-
-
-        <!-- <a-box  gps-entity-place="latitude: 30.8624779; longitude: 75.8344903;" material="src:https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png"></a-box> -->
-
+        <!-- <a-entity gps-entity-place="latitude: 30.8625331; longitude: 75.8343547;" gltf-model="./assets/magnemite/scene.gltf" rotation="0 180 0" animation-mixer scale="0.15 0.15 0.15"/> -->
+        <a-box  gps-entity-place="latitude: 30.8625331; longitude: 75.8343547;" material="src:https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png"></a-box>
         <a-camera gps-camera rotation-reader></a-camera>
 	</a-scene>
 </body>
