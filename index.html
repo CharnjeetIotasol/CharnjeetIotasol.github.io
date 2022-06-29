@@ -4,23 +4,37 @@
 <head>
     <title>AR.js Hello World Example Final Location base</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script type='text/javascript' src='aframe-ar-nft.js'></script>
     <script>
         window.onload = () => {
             navigator.geolocation.getCurrentPosition((position) => {
                 alert(position.coords.latitude);
                 alert(position.coords.longitude);
-                document.querySelector('a-box').setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude};`)
+                //document.querySelector('a-box').setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude};`)
             });
         }
     </script>
 </head>
 
-<body>
-    <a-scene vr-mode-ui="enabled: false" arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false;'
-        renderer='antialias: true; alpha: true'>
-        <a-camera gps-camera rotation-reader></a-camera>
-        <a-box color='red' look-at="[gps-camera]" scale='20 20 20'></a-box>
+<body style='margin: 0; overflow: hidden;'>
+    <a-scene vr-mode-ui="enabled: false" arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false;'>
+
+        <!-- ~ 400m far -->
+        <a-box material="color: red;" scale="5 5 5" gps-entity-place="latitude: 44.506477; longitude: 11.301524;">
+        </a-box>
+
+        <!-- ~ 20m far -->
+        <a-image src="place.png" gps-entity-place="latitude: 44.504417; longitude: 11.301317;"></a-image>
+
+        <!-- ~ 0m far -->
+        <a-image src="place.png" gps-entity-place="latitude: 44.504348; longitude: 11.301027;"></a-image>
+
+        <!-- using gpsMinDistance: 5 => update GPS only if user moves by 5 meters or more => avoid shaking for near objects -->
+        <!-- using accelerationToMove: 1.0 => 'smooth' inertial sensors precision precision in order to avoid distant places shaking -->
+        <a-camera rotation-reader
+            gps-camera="simulateLatitude: 44.50437; simulateLongitude: 11.30106; gpsMinDistance: 10;">
+        </a-camera>
     </a-scene>
 </body>
 
