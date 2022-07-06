@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>6 - updated</title>
+    <title>7 - updated</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script type='text/javascript' src='aframe-ar-nft.js'></script>
@@ -37,10 +37,10 @@
             clicker></a-box>
 
         <!-- ~ 20m far -->
-        <a-image src="place.png" gps-entity-place="latitude: 44.504417; longitude: 11.301317;"></a-image>
+        <a-image src="map-pin-default-small.png" gps-entity-place="latitude: 44.504417; longitude: 11.301317;" clicker></a-image>
 
         <!-- ~ 0m far -->
-        <a-image src="place.png" gps-entity-place="latitude: 44.504348; longitude: 11.301027;"></a-image>
+        <a-image src="map-pin-default-small.png" gps-entity-place="latitude: 44.504348; longitude: 11.301027;" clicker></a-image>
 
         <!-- using gpsMinDistance: 5 => update GPS only if user moves by 5 meters or more => avoid shaking for near objects -->
         <!-- using accelerationToMove: 1.0 => 'smooth' inertial sensors precision precision in order to avoid distant places shaking -->
