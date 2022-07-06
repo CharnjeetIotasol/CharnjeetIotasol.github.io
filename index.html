@@ -2,13 +2,13 @@
 <html>
 
 <head>
-    <title>2 - updated</title>
+    <title>3 - updated</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script type='text/javascript' src='aframe-ar-nft.js'></script>
     <script>
         window.onload = () => {
-            
+
             navigator.geolocation.getCurrentPosition((position) => {
                 alert(position.coords.latitude);
                 alert(position.coords.longitude);
@@ -29,14 +29,24 @@
 </head>
 
 <body style='margin: 0; overflow: hidden;'>
-    <a-scene vr-mode-ui="enabled: false" arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false;'>
+    <a-scene vr-mode-ui="enabled: false" cursor='rayOrigin: mouse' raycaster='near: 0; far: 50000'
+        arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false;' renderer='antialias: true; alpha: true'>
+
+       
+        <!-- ~ 400m far -->
+        <a-box material="color: red;" scale="5 5 5" gps-entity-place="latitude: 44.506477; longitude: 11.301524;" clicker></a-box> 
+
+        <!-- ~ 20m far -->
+        <a-image src="place.png" gps-entity-place="latitude: 44.504417; longitude: 11.301317;" clicker
+        ></a-image> 
 
         <!-- ~ 0m far -->
-        <a-image src="place.png" clicker></a-image>
+        <a-image src="place.png" gps-entity-place="latitude: 44.504348; longitude: 11.301027;" clicker
+            ></a-image>
 
         <!-- using gpsMinDistance: 5 => update GPS only if user moves by 5 meters or more => avoid shaking for near objects -->
         <!-- using accelerationToMove: 1.0 => 'smooth' inertial sensors precision precision in order to avoid distant places shaking -->
-        <a-camera rotation-reader gps-camera="gpsMinDistance: 10;">
+        <a-camera rotation-reader  gps-camera="simulateLatitude: 44.50437; simulateLongitude: 11.30106; gpsMinDistance: 10;">
         </a-camera>
     </a-scene>
 </body>
