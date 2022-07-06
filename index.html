@@ -2,28 +2,27 @@
 <html>
 
 <head>
-    <title>4 - updated</title>
+    <title>5 - updated</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script type='text/javascript' src='aframe-ar-nft.js'></script>
     <script>
         window.onload = () => {
-
             navigator.geolocation.getCurrentPosition((position) => {
                 // alert(position.coords.latitude);
                 // alert(position.coords.longitude);
                 // document.querySelector('a-image').setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude};`)
             });
-            AFRAME.registerComponent('clicker', {
-                init: function () {
-                    alert(4);
-                    this.el.addEventListener('click', e => {
-                        alert(4);
-                        alert('Marker clicked!');
-                    });
-                }
-            });
         }
+        AFRAME.registerComponent('clicker', {
+            init: function () {
+                alert(2);
+                alert(this.el);
+                this.el.addEventListener('click', e => {
+                    alert('Marker clicked!');
+                });
+            }
+        });
 
     </script>
 </head>
@@ -34,14 +33,14 @@
 
 
         <!-- ~ 400m far -->
-        <a-box material="color: red;" scale="5 5 5" gps-entity-place="latitude: 44.506477; longitude: 11.301524;"
+        <a-box material="color: red;" scale='200 200 200' gps-entity-place="latitude: 44.506477; longitude: 11.301524;"
             clicker></a-box>
 
         <!-- ~ 20m far -->
-        <a-image src="place.png" gps-entity-place="latitude: 44.504417; longitude: 11.301317;" clicker></a-image>
+        <a-image src="place.png" gps-entity-place="latitude: 44.504417; longitude: 11.301317;"></a-image>
 
         <!-- ~ 0m far -->
-        <a-image src="place.png" gps-entity-place="latitude: 44.504348; longitude: 11.301027;" clicker></a-image>
+        <a-image src="place.png" gps-entity-place="latitude: 44.504348; longitude: 11.301027;"></a-image>
 
         <!-- using gpsMinDistance: 5 => update GPS only if user moves by 5 meters or more => avoid shaking for near objects -->
         <!-- using accelerationToMove: 1.0 => 'smooth' inertial sensors precision precision in order to avoid distant places shaking -->
