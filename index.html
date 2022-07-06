@@ -2,19 +2,23 @@
 <html>
 
 <head>
-    <title>1 - updated</title>
+    <title>2 - updated</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script type='text/javascript' src='aframe-ar-nft.js'></script>
     <script>
         window.onload = () => {
-            alert(4);
+            
             navigator.geolocation.getCurrentPosition((position) => {
+                alert(position.coords.latitude);
+                alert(position.coords.longitude);
                 document.querySelector('a-image').setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude};`)
             });
             AFRAME.registerComponent('clicker', {
                 init: function () {
+                    alert(4);
                     this.el.addEventListener('click', e => {
+                        alert(4);
                         alert('Marker clicked!');
                     });
                 }
