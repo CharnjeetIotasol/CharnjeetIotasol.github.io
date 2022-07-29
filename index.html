@@ -2,42 +2,25 @@
 <html>
 
 <head>
-    <title>9 - updated</title>
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Demo 1</title>
+    <script
+        src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-    <script type='text/javascript' src='aframe-ar-nft.js'></script>
+    <script src='../../build/aframe-ar.js'></script>
     <script>
-        window.onload = () => {
-            navigator.geolocation.getCurrentPosition((position) => {
-                // alert(position.coords.latitude);
-                // alert(position.coords.longitude);
-                // document.querySelector('a-image').setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude};`)
-            });
-        }
-        AFRAME.registerComponent('clicker', {
-            init: function () {
-                this.el.addEventListener('click', e => {
-                    alert('Marker clicked!');
-                });
-            }
-        });
-
+        THREEx.ArToolkitContext.baseURL = 'https://raw.githack.com/jeromeetienne/ar.js/master/three.js/'
     </script>
 </head>
 
 <body style='margin: 0; overflow: hidden;'>
-    <a-scene vr-mode-ui="enabled: false" cursor='rayOrigin: mouse' raycaster='near: 0; far: 50000'
-        arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false;' renderer='antialias: true; alpha: true'>
+    <a-scene vr-mode-ui="enabled: false" embedded
+        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
 
-        <!-- ~ 0m far -->
-        <a-image src="map-pin-default-small.png" gps-entity-place="latitude: 44.504348; longitude: 11.301027;" clicker></a-image>
-
-        <!-- using gpsMinDistance: 5 => update GPS only if user moves by 5 meters or more => avoid shaking for near objects -->
-        <!-- using accelerationToMove: 1.0 => 'smooth' inertial sensors precision precision in order to avoid distant places shaking -->
-        <a-camera rotation-reader
-            gps-camera="simulateLatitude: 44.50437; simulateLongitude: 11.30106; gpsMinDistance: 10;">
+        <a-text value="This will always face the user." look-at="[gps-camera]" scale="75 75 75"
+            gps-entity-place="latitude: 44.493271; longitude: 11.326040;"></a-text>
+        <a-camera gps-camera rotation-reader>
         </a-camera>
     </a-scene>
 </body>
-
-</html>
