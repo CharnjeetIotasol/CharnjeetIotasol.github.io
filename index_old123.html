@@ -4,8 +4,8 @@
 <head>
     <title>9 - updated</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <!-- <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script> -->
-    <script type='text/javascript' src='aframe-ar-nft.js'></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script type='text/javascript' src='aframe-ar.js'></script>
     <script>
         window.onload = () => {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -14,7 +14,7 @@
                 // document.querySelector('a-image').setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude};`)
             });
         }
-       
+
 
     </script>
 </head>
@@ -24,12 +24,13 @@
         arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false;' renderer='antialias: true; alpha: true'>
 
         <!-- ~ 0m far -->
-        <a-image src="map-pin-default-small.png" gps-entity-place="latitude: 44.504348; longitude: 11.301027;" clicker></a-image>
+        <a-image src="map-pin-default-small.png" gps-entity-place="latitude: 44.504348; longitude: 11.301027;" clicker>
+        </a-image>
 
         <!-- using gpsMinDistance: 5 => update GPS only if user moves by 5 meters or more => avoid shaking for near objects -->
         <!-- using accelerationToMove: 1.0 => 'smooth' inertial sensors precision precision in order to avoid distant places shaking -->
         <a-camera rotation-reader
-            gps-camera="simulateLatitude: 44.50437; simulateLongitude: 11.30106; gpsMinDistance: 10;">
+            gps-camera="simulateLatitude: 44.504348; simulateLongitude: 11.301027; gpsMinDistance: 5;">
         </a-camera>
     </a-scene>
 </body>

@@ -2,20 +2,37 @@
 <html>
 
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>2 Demo</title>
+    <title>10 - updated</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src='/aframe-ar.js'></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script type='text/javascript' src='aframe-ar-nft.js'></script>
+    <script>
+        window.onload = () => {
+            navigator.geolocation.getCurrentPosition((position) => {
+                // alert(position.coords.latitude);
+                // alert(position.coords.longitude);
+                // document.querySelector('a-image').setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude};`)
+            });
+        }
+
+
+    </script>
 </head>
 
 <body style='margin: 0; overflow: hidden;'>
-    <a-scene vr-mode-ui="enabled: false" embedded
-        arjs='sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960; debugUIEnabled: false;'>
+    <a-scene vr-mode-ui="enabled: false" cursor='rayOrigin: mouse' raycaster='near: 0; far: 50000'
+        arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false;' renderer='antialias: true; alpha: true'>
 
-        <a-box material="color: red;" scale="300 300 300" position="0 0 0"></a-box>
-        <!-- use far property to hide objects over 5000 meters -->
-        <a-camera far="5000" gps-camera rotation-reader>
+        <!-- ~ 0m far -->
+        <a-image src="map-pin-default-small.png" gps-entity-place="latitude: 44.504348; longitude: 11.301027;" clicker>
+        </a-image>
+
+        <!-- using gpsMinDistance: 5 => update GPS only if user moves by 5 meters or more => avoid shaking for near objects -->
+        <!-- using accelerationToMove: 1.0 => 'smooth' inertial sensors precision precision in order to avoid distant places shaking -->
+        <a-camera rotation-reader
+            gps-camera="simulateLatitude: 44.504348; simulateLongitude: 11.301027; gpsMinDistance: 5;">
         </a-camera>
     </a-scene>
 </body>
+
+</html>
