@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AR.js A-Frame Location-based</title>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.4.0/dist/aframe-extras.min.js"></script>
+    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/three.js/build/ar-threex-location-only.js'></script>
+    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js'></script>
+    <!-- <script src="https://raw.githubusercontent.com/jeromeetienne/ar.js/master/aframe/build/aframe-ar.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+</head>
+<body>
+    <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer="logarithmicDepthBuffer: true;"
+    cursor='fuse: false; rayOrigin: mouse'
+    raycaster='objects:a-entity; near: 0; far: 10000'>
+        <!-- <a-assets>
+            <a-asset-item
+                id="animated-asset"
+                src="scene.gltf"
+            ></a-asset-item>
+        </a-assets> -->
+        <!-- <a-entity id="animated-asset"></a-entity> -->
+        <a-camera gps-new-camera='gpsMinDistance: 3;'>
+        </a-camera> <!-- Added cursor here -->
+    </a-scene>
+    <script>
+        window.onload = () => {
+            let entities = []; // Array to store entities for each location
+            const el = document.querySelector("[gps-new-camera]");
+            AFRAME.registerComponent('cursor-listener', {
+                                init: function() {
+                                var data = this.data;
+                                var el = this.el;
+                                el.addEventListener('click', function(evt) {
+                                    alert('click');
+                                });
+                                }
+                            });
+            AFRAME.registerComponent('gltf-loader', {
+                    init: function () {
+                    var scene = this.el;  // Reference to the <a-entity> element
+                    var loader = new THREE.GLTFLoader();  // Initialize the GLTFLoader
+                    
+                    loader.load('scene.gltf', function (gltf) {
+                        // Add the loaded model to the scene
+                        scene.setObject3D('mesh', gltf.scene);
+                        
+                        // Adjust model's scale or position if needed
+                        gltf.scene.scale.set(10, 10, 10);
+                        gltf.scene.position.set(0, 0, 0);
+                    });
+                    }
+                });
+            el.addEventListener("gps-camera-update-position", e => {
+                if (entities.length === 0) {  // Only create entities once
+                    alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
+
+                    // Create a new entity
+                    const entity = document.createElement("a-entity");
+
+                    entity.setAttribute('id', '#gltf-model');
+                    // entity.setAttribute('gltf-model', '#animated-asset');
+                    // entity.setAttribute('animation-mixer', 'clip: *');
+
+                    // entity.setAttribute("scale", {x: 10, y: 10, z: 10});
+                    entity.setAttribute("cursor-listener", '');
+                    entity.setAttribute('gps-new-entity-place', {
+                        latitude: e.detail.position.latitude + 0.001,
+                        longitude: e.detail.position.longitude
+                    });
+                    console.log('scene loaded');
+                    entity.setAttribute('gltf-model', 'gltf-loader');
+                    // entity.setAttribute("scale", {x: 30, y: 30, z: 30});
+                    // entity.setAttribute("color", "yellow");
+                    // entity.setAttribute("cursor-listener", '');
+                    // entity.setAttribute("position", '0 0 0');
+                    // entity.setAttribute("class", 'my-glb-object');
+                    // entity.setAttribute('gps-new-entity-place', {
+                    //     latitude: e.detail.position.latitude + 0.001,
+                    //     longitude: e.detail.position.longitude
+                    // });
+                    document.querySelector("a-scene").prepend(entity);
+                    entities.push(entity);
+        }
+        });
+        };
+    </script>
+</body>
+</html>

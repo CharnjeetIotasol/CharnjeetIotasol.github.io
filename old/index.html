@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AR.js Location-based Example</title>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.2/aframe/build/aframe-ar.js"></script>
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+    <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; gpsMinDistance: 20; gpsTimeInterval: 1000;">
+
+        <!-- Add a 3D model at a specific GPS location -->
+        <a-box gps-entity-place="latitude: 30.860567; longitude: 75.838073" position="0 0 0" material="color: red;"
+            scale="2 2 2">
+        </a-box>
+
+        <!-- Camera for AR.js -->
+        <a-camera gps-camera rotation-reader></a-camera>
+    </a-scene>
+</body>
+
+</html>

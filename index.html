@@ -1,22 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AR.js Location-based Example</title>
-    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.7.2/aframe/build/aframe-ar.js"></script>
+    <title>AR.js A-Frame Location-based</title>
+    <!-- <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.4.0/dist/aframe-extras.min.js"></script>
+    <script type='text/javascript' src='ar-threex-location-only.js'></script>
+    <script type='text/javascript' src='aframe-ar.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script> -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.4.0/dist/aframe-extras.min.js"></script>
+    <script type='text/javascript' src='ar-threex-location-only.js'></script>
+    <script type='text/javascript' src='aframe-ar.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 </head>
-
-<body style="margin: 0; overflow: hidden;">
-    <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; gpsMinDistance: 20; gpsTimeInterval: 1000;">
-
-        <!-- Add a 3D model at a specific GPS location -->
-        <a-box gps-entity-place="latitude: 30.860567; longitude: 75.838073" position="0 0 0" material="color: red;"
-            scale="2 2 2">
-        </a-box>
-
-        <!-- Camera for AR.js -->
-        <a-camera gps-camera rotation-reader></a-camera>
+<body>
+    <a-scene
+    arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false'
+    renderer="antialias: true; logarithmicDepthBuffer: true; colorManagement: true;"
+    vr-mode-ui='enabled: false'
+    cursor="fuse: false; rayOrigin: mouse"
+    raycaster="objects: .clickable; near: 0; far: 10000"
+>
+        <a-camera gps-new-camera='gpsMinDistance: 3;'>
+        </a-camera>
+        <a-light type="ambient" color="#FFF"></a-light>
+        <a-light type="directional" position="0 1 0" intensity="0.5"></a-light>
     </a-scene>
-</body>
+    <script src="script.js"></script>
+    <!-- <script>
+        window.onload = () => {
+            let entities = []; // Array to store entities for each location
+            const el = document.querySelector("[gps-new-camera]");
+            AFRAME.registerComponent('cursor-listener', {
+                                init: function() {
+                                var data = this.data;
+                                var el = this.el;
+                                el.addEventListener('click', function(evt) {
+                                    alert('click');
+                                });
+                                }
+                            });
+            el.addEventListener("gps-camera-update-position", e => {
+                if (entities.length === 0) {  // Only create entities once
+                    alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
 
+                    // Create a new entity
+                    const entity = document.createElement("a-entity");
+                    entity.setAttribute('gltf-model', '#animated-asset');
+                    entity.setAttribute('animation-mixer', {
+                        loop: 'repeat',
+                        clip: 'static',  // Plays all animations
+                    });
+                    entity.setAttribute('shadow', {
+                        cast: true
+                    });
+                    
+                    entity.setAttribute("scale", {x: 0.02, y: 0.02, z: 0.02});
+                    entity.setAttribute("position", '0 0 0');
+                    entity.setAttribute("cursor-listener", '');
+                    entity.setAttribute('gps-new-entity-place', {
+                        latitude: e.detail.position.latitude,
+                        longitude: e.detail.position.longitude
+                    });
+                    document.querySelector("a-scene").prepend(entity);
+                    entities.push(entity);
+        }
+        });
+        };
+    </script> -->
+</body>
 </html>
